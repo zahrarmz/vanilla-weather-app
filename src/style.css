@@ -9,20 +9,20 @@ body {
   border: 1px solid #dadde1;
   border-radius: 10px;
   max-width: 700px;
-
+  box-shadow: 1px 1px 2px 2px #f5bfb3;
   padding: 40px;
   margin: 60px auto;
   background-color: #f9f7fe;
-  height: 500px;
 }
 .units {
   position: fixed;
-  margin-top: 5px;
+  margin-top: 2px;
   font-size: 18px;
   font-weight: bold;
 }
 .temp {
   margin-left: 100px;
+  margin-top: 20px;
 }
 
 ul {
@@ -35,7 +35,7 @@ ul {
 
 #city-name {
   font-size: 30px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .backgroud {
   height: 700px;
@@ -50,4 +50,34 @@ li {
 #temperature {
   font-size: 40px;
   padding-top: 100px;
+}
+
+#time {
+  color: #f5bfb3;
+}
+#humidity {
+  color: #f5bfb3;
+}
+#speed {
+  color: #f5bfb3;
+}
+
+.btn {
+  background-color: #f5bfb3;
+  border: #f5bfb3;
+}
+.btn:hover {
+  background-color: #bed5e7;
+  border: #bed5e7;
+}
+
+.coder {
+  margin-top: 50px;
+  text-align: center;
+  margin-bottom: -45px;
+  font-size: 12px;
+}
+
+.name {
+  color: #f5bfb3;
 }
