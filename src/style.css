@@ -83,4 +83,24 @@ li {
 
 .name {
   color: #f5bfb3;
+  text-decoration: none;
+}
+
+.active {
+  color: rgb(33, 33, 33);
+  cursor: default;
+  text-decoration: none;
+}
+.active:hover {
+  cursor: default;
+  text-decoration: none;
+  color: #f5bfb3;
+}
+
+#description::first-letter {
+  text-transform: uppercase;
+}
+
+#city-name::first-letter {
+  text-transform: uppercase;
 }

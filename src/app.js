@@ -26,7 +26,29 @@ function UpdateTemp(response) {
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
+  celsiustemp = Math.round(response.data.main.temp);
 }
+
+function changeToFahrenheit(event) {
+  event.preventDefault();
+
+  let fahrenheitTemp = document.querySelector("#temperature");
+  fahrenheitTemp.innerHTML = Math.round(1.8 * celsiustemp + 32);
+}
+
+function changeTocelsiustemp(event) {
+  event.preventDefault();
+  let Temp = document.querySelector("#temperature");
+  if (celsiustemp != null) {
+    Temp.innerHTML = celsiustemp;
+  }
+}
+
+let celsiustemp = null;
+let fahrenheit = document.querySelector("#funit");
+fahrenheit.addEventListener("click", changeToFahrenheit);
+let celsius = document.querySelector("#cunit");
+celsius.addEventListener("click", changeTocelsiustemp);
 
 function changeTime() {
   let now = new Date();
