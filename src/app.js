@@ -12,12 +12,20 @@ let input = document.querySelector("form");
 input.addEventListener("submit", searchCity);
 
 function UpdateTemp(response) {
+  console.log(response);
   let temperature = document.querySelector("#temperature");
   temperature.innerHTML = Math.round(response.data.main.temp);
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = Math.round(response.data.main.humidity);
   let windSpeed = document.querySelector("#speed");
   windSpeed.innerHTML = response.data.wind.speed;
+  let description = document.querySelector("#description");
+  description.innerHTML = response.data.weather[0].description;
+  let icon = document.querySelector("#icon");
+  icon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
 }
 
 function changeTime() {
