@@ -104,3 +104,23 @@ li {
 #city-name::first-letter {
   text-transform: uppercase;
 }
+
+.weather-forecast-date {
+  text-align: center;
+  margin-top: 50px;
+  margin-left: -40px;
+  font-size: 16px;
+  opacity: 0.5;
+}
+
+.weather-forecast-temperature-min {
+  opacity: 0.5;
+}
+
+.weather-forecast-temperatures {
+  font-size: 13px;
+}
+..weather-forecast {
+  display: block;
+  margin: 0 auto;
+}
