@@ -1,18 +1,20 @@
-function searchCity(event) {
-  event.preventDefault();
-  let valueSearch = document.querySelector(".searchCityName").value;
-  let cityname = document.querySelector("#city-name");
-  cityname.innerHTML = valueSearch;
+function searchCity(valueSearch) {
   let apiKey = "dc6da26cba5d1a9368c9f7f2cd7d44f7";
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${valueSearch}&appid=${apiKey}&units=metric`;
-
   axios.get(url).then(UpdateTemp);
 }
+function handleSubmit(event) {
+  event.preventDefault();
+  let valueSearch = document.querySelector(".searchCityName").value;
+  searchCity(valueSearch);
+  let cityname = document.querySelector("#city-name");
+  cityname.innerHTML = valueSearch;
+}
+
 let input = document.querySelector("form");
-input.addEventListener("submit", searchCity);
+input.addEventListener("submit", handleSubmit);
 
 function UpdateTemp(response) {
-  console.log(response);
   let temperature = document.querySelector("#temperature");
   temperature.innerHTML = Math.round(response.data.main.temp);
   let humidity = document.querySelector("#humidity");
@@ -26,29 +28,11 @@ function UpdateTemp(response) {
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
-  celsiustemp = Math.round(response.data.main.temp);
-}
 
-function changeToFahrenheit(event) {
-  event.preventDefault();
-
-  let fahrenheitTemp = document.querySelector("#temperature");
-  fahrenheitTemp.innerHTML = Math.round(1.8 * celsiustemp + 32);
-}
-
-function changeTocelsiustemp(event) {
-  event.preventDefault();
-  let Temp = document.querySelector("#temperature");
-  if (celsiustemp != null) {
-    Temp.innerHTML = celsiustemp;
-  }
+  getForecast(response.data.coord);
 }
 
 let celsiustemp = null;
-let fahrenheit = document.querySelector("#funit");
-fahrenheit.addEventListener("click", changeToFahrenheit);
-let celsius = document.querySelector("#cunit");
-celsius.addEventListener("click", changeTocelsiustemp);
 
 function changeTime() {
   let now = new Date();
@@ -89,31 +73,53 @@ function changeTime() {
 }
 
 changeTime();
-
-function forecast() {
+function forecast(response) {
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
       <div class="col-2">
-        <div class="weather-forecast-date">${day}</div>
+        <div class="weather-forecast-date">${formatdate(forecastDay.dt)}</div>
         <img
-          src="http://openweathermap.org/img/wn/50d@2x.png"
+          src="http://openweathermap.org/img/wn/${
+            forecastDay.weather[0].icon
+          }@2x.png"
           alt=""
           width="42"
         />
         <div class="weather-forecast-temperatures">
-          <span class="weather-forecast-temperature-max"> 18° </span>
-          <span class="weather-forecast-temperature-min"> 12° </span>
+          <span class="weather-forecast-temperature-max"> ${Math.round(
+            forecastDay.temp.max
+          )}° </span>
+          <span class="weather-forecast-temperature-min"> ${Math.round(
+            forecastDay.temp.max
+          )}° </span>
         </div>
       </div>
   `;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-  console.log(forecastHTML);
 }
-forecast();
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apikey = "dc6da26cba5d1a9368c9f7f2cd7d44f7";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apikey}&units=metric`;
+  axios.get(apiUrl).then(forecast);
+}
+
+function formatdate(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+searchCity("new york");
