@@ -15,10 +15,9 @@ body {
   background-color: #f9f7fe;
 }
 .units {
-  position: fixed;
-  margin-top: 2px;
-  font-size: 18px;
-  font-weight: bold;
+  position: relative;
+  font-size: 16px;
+  top: -25px;
 }
 .temp {
   margin-left: 100px;
